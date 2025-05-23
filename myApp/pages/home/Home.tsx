@@ -2,96 +2,93 @@ import { StatusBar } from 'expo-status-bar';
 import { Picker } from '@react-native-picker/picker';
 import { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Linking } from 'react-native';
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
-import Icon from 'react-native-vector-icons/Ionicons';
-
 import tw from 'twrnc';
-import Main from './pages/main/Main';
-
-const Tab = createBottomTabNavigator();
+import { useUser } from '../../context/UserContext';
 
 export default function Home() {
-  const [name, setName] = useState('');
+  const { userName, setUserName } = useUser();
   const [city, setCity] = useState('');
   const [maritalStatus, setMaritalStatus] = useState<string>('single');
 
   return (
-    <View style={tw`flex-1 items-center justify-center bg-red-100 p-4`}>
-      <Text style={tw`text-2xl font-bold`}>Hello to my app!</Text>
-      
-      <Text style={tw`mt-4 text-lg`}>Enter your name</Text>
-      <TextInput
-        style={tw`border border-gray-300 rounded p-2 w-64`}
-        placeholder="Name"
-        onChangeText={setName}
-        value={name}
-      />
+    <View style={tw`flex-1 bg-gradient-to-b from-blue-50 to-blue-100 p-6`}>
+      <View style={tw`bg-white rounded-2xl shadow-lg p-6 mt-4`}>
+        <Text style={tw`text-3xl font-bold text-center text-gray-800 mb-8`}>Yosef App!</Text>
+        
+        <View style={tw`space-y-4`}>
+          <View>
+            <Text style={tw`text-lg font-semibold text-gray-700 mb-2`}>Your Name</Text>
+            <TextInput
+              style={tw`bg-gray-50 border border-gray-200 rounded-xl p-4 text-gray-700`}
+              placeholder="Enter your name"
+              onChangeText={setUserName}
+              value={userName}
+              placeholderTextColor="#9CA3AF"
+            />
+          </View>
 
-      <Text style={tw`mt-4 text-lg`}>Enter your city</Text>
-      <TextInput
-        style={tw`border border-gray-300 rounded p-2 w-64`}
-        placeholder="City"
-        onChangeText={setCity}
-        value={city}
-      />
+          <View>
+            <Text style={tw`text-lg font-semibold text-gray-700 mb-2`}>Your City</Text>
+            <TextInput
+              style={tw`bg-gray-50 border border-gray-200 rounded-xl p-4 text-gray-700`}
+              placeholder="Enter your city"
+              onChangeText={setCity}
+              value={city}
+              placeholderTextColor="#9CA3AF"
+            />
+          </View>
 
-          <View style={tw`mt-4 w-64`}>
-        <Button
-          title="Clear"
-          onPress={() => {
-            setName('');
-            setCity('');
-          }}
-          color="#ef4444"
-        />
+          <View>
+            <Text style={tw`text-lg font-semibold text-gray-700 mb-2`}>Marital Status</Text>
+            <View style={tw`h-10 bg-gray-50 border border-gray-200 rounded-xl overflow-hidden flex justify-center`}>
+              <Picker
+                selectedValue={maritalStatus}
+                onValueChange={(itemValue: string) => setMaritalStatus(itemValue)}
+                style={tw`h-16`}
+                dropdownIconColor="#4B5563"
+              >
+                <Picker.Item label="Single" value="single" />
+                <Picker.Item label="Married" value="married" />
+                <Picker.Item label="Divorced" value="divorced" />
+                <Picker.Item label="Widowed" value="widowed" />
+              </Picker>
+            </View>
+          </View>
+
+          <View style={tw`flex-row justify-between mt-6`}>
+            <View style={tw`flex-1 mr-2`}>
+              <Button
+                title="Clear"
+                onPress={() => {
+                  setUserName('');
+                  setCity('');
+                  setMaritalStatus('single');
+                }}
+                color="#EF4444"
+              />
+            </View>
+            <View style={tw`flex-1 ml-2`}>
+              <Button
+                title="Summary"
+                onPress={() => {
+                  alert(`Name: ${userName}\nCity: ${city}\nStatus: ${maritalStatus}`);
+                }}
+                color="#3B82F6"
+              />
+            </View>
+          </View>
+
+          <View style={tw`mt-4`}>
+            <Button
+              title="Open Google"
+              onPress={() => {
+                Linking.openURL('https://www.google.com');
+              }}
+              color="#10B981"
+            />
+          </View>
+        </View>
       </View>
-
-      {/* <Text style={tw`mt-4 text-lg`}>Your name is {name} </Text>
-      <Text style={tw`mt-4 text-lg`}>you live in {city}</Text> */}
-
-      <Text style={tw`mt-4 text-lg`}>Marital status</Text>
-      <View style={tw`border border-gray-300 rounded w-64 bg-white p-2 h-12 flex justify-center`}>
-        <Picker
-          selectedValue={maritalStatus}
-          onValueChange={(itemValue: string) => setMaritalStatus(itemValue)}
-          style={tw`h-16 justify-center`}
-          dropdownIconColor="#ef4444"
-          dropdownIconRippleColor="#ef4444"
-          dropdownStyle={tw`bg-white`}
-          itemStyle={tw`text-red-500`}
-          mode="dropdown" // 'dropdown' or 'dialog'
-    
-        >
-          <Picker.Item label="Single" value="single" />
-          <Picker.Item label="Married" value="married" />
-          <Picker.Item label="Divorced" value="divorced" />
-          <Picker.Item label="Widowed" value="widowed" />
-        </Picker>
-      </View>
-
-      {/* <Text style={tw`mt-4 text-lg`}>Marital status: {maritalStatus}</Text> */}
-
-      <View style={tw`mt-4 w-64`}>
-        <Button
-          title="Summary"
-          onPress={() => {
-            alert(`Your name is ${name} and you live in ${city} and your marital status is ${maritalStatus}`);
-          }}
-          color="#ef4444"
-        />
-      </View>
-
-      <View style={tw`mt-4 w-64`}>
-        <Button
-          title="go to Google"
-          onPress={() => {
-            Linking.openURL('https://www.google.com');
-          }}
-          color="#ef4444"
-        />
-      </View>
-
       <StatusBar style="auto" />
     </View>
   );
