@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import tw from 'twrnc';
-import Profile from './pages/main/Profile';
+import Profile from './pages/profile/Profile';
 import Home from './pages/home/Home';
 import Setting from './pages/setting/Setting';
 import { UserProvider } from './context/UserContext';

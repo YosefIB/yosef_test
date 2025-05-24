@@ -6,20 +6,20 @@ import tw from 'twrnc';
 import { useUser } from '../../context/UserContext';
 
 export default function Home() {
-  const { userName, setUserName } = useUser();
-  const [city, setCity] = useState('');
-  const [maritalStatus, setMaritalStatus] = useState<string>('single');
+  const { userName, setUserName, city, setCity, maritalStatus, setMaritalStatus } = useUser();
+  // const [maritalStatus, setMaritalStatus] = useState<string>('single');
 
   return (
-    <View style={tw`flex-1 bg-gradient-to-b from-blue-50 to-blue-100 p-6`}>
-      <View style={tw`bg-white rounded-2xl shadow-lg p-6 mt-4`}>
-        <Text style={tw`text-3xl font-bold text-center text-gray-800 mb-8`}>Yosef App!</Text>
-        
-        <View style={tw`space-y-4`}>
+    <View style={containerStyle}>
+      <View style={cardStyle}>
+        <Text style={headerTextStyle}>Yosef App!</Text>
+
+        <View style={formContainerStyle}>
+          {/* Name Input */}
           <View>
-            <Text style={tw`text-lg font-semibold text-gray-700 mb-2`}>Your Name</Text>
+            <Text style={labelTextStyle}>Your Full Name</Text>
             <TextInput
-              style={tw`bg-gray-50 border border-gray-200 rounded-xl p-4 text-gray-700`}
+              style={inputStyle}
               placeholder="Enter your name"
               onChangeText={setUserName}
               value={userName}
@@ -27,10 +27,11 @@ export default function Home() {
             />
           </View>
 
+          {/* City Input */}
           <View>
-            <Text style={tw`text-lg font-semibold text-gray-700 mb-2`}>Your City</Text>
+            <Text style={labelTextStyle}>Your City</Text>
             <TextInput
-              style={tw`bg-gray-50 border border-gray-200 rounded-xl p-4 text-gray-700`}
+              style={inputStyle}
               placeholder="Enter your city"
               onChangeText={setCity}
               value={city}
@@ -38,13 +39,14 @@ export default function Home() {
             />
           </View>
 
+          {/* Marital Status Picker */}
           <View>
-            <Text style={tw`text-lg font-semibold text-gray-700 mb-2`}>Marital Status</Text>
-            <View style={tw`h-10 bg-gray-50 border border-gray-200 rounded-xl overflow-hidden flex justify-center`}>
+            <Text style={labelTextStyle}>Marital Status</Text>
+            <View style={pickerContainerStyle}>
               <Picker
                 selectedValue={maritalStatus}
                 onValueChange={(itemValue: string) => setMaritalStatus(itemValue)}
-                style={tw`h-16`}
+                style={pickerStyle}
                 dropdownIconColor="#4B5563"
               >
                 <Picker.Item label="Single" value="single" />
@@ -55,8 +57,9 @@ export default function Home() {
             </View>
           </View>
 
-          <View style={tw`flex-row justify-between mt-6`}>
-            <View style={tw`flex-1 mr-2`}>
+          {/* Buttons Row */}
+          <View style={buttonsRowStyle}>
+            <View style={buttonWrapperLeft}>
               <Button
                 title="Clear"
                 onPress={() => {
@@ -67,7 +70,7 @@ export default function Home() {
                 color="#EF4444"
               />
             </View>
-            <View style={tw`flex-1 ml-2`}>
+            <View style={buttonWrapperRight}>
               <Button
                 title="Summary"
                 onPress={() => {
@@ -78,7 +81,8 @@ export default function Home() {
             </View>
           </View>
 
-          <View style={tw`mt-4`}>
+          {/* Google Link */}
+          <View style={googleButtonWrapper}>
             <Button
               title="Open Google"
               onPress={() => {
@@ -93,3 +97,23 @@ export default function Home() {
     </View>
   );
 }
+
+
+// Styles
+const containerStyle = tw`flex-1 bg-gradient-to-b from-blue-50 to-blue-100 p-6`;
+const cardStyle = tw`bg-white rounded-2xl shadow-lg p-6 mt-4`;
+const headerTextStyle = tw`text-3xl font-bold text-center text-gray-800 mb-8`;
+
+const formContainerStyle = tw`space-y-4`;
+
+const labelTextStyle = tw`text-lg font-semibold text-gray-700 mb-2`;
+const inputStyle = tw`bg-gray-50 border border-gray-200 rounded-xl p- text-gray-700`;
+
+const pickerContainerStyle = tw`h-10 bg-gray-50 border border-gray-200 rounded-xl overflow-hidden flex justify-center`;
+const pickerStyle = tw`h-16`;
+
+const buttonsRowStyle = tw`flex-row justify-between mt-6`;
+const buttonWrapperLeft = tw`flex-1 mr-`;
+const buttonWrapperRight = tw`flex-1 ml-2`;
+
+const googleButtonWrapper = tw`mt-4`;

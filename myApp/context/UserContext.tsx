@@ -5,6 +5,8 @@ type UserContextType = {
     setUserName: (name: string) => void;
     city: string;
     setCity: (city: string) => void;
+    maritalStatus: string;
+    setMaritalStatus: (status: string) => void;
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -12,9 +14,10 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const [userName, setUserName] = useState('');
     const [city, setCity] = useState('');
+    const [maritalStatus, setMaritalStatus] = useState('');
 
     return (
-        <UserContext.Provider value={{ userName, setUserName, city, setCity }}>
+        <UserContext.Provider value={{ userName, setUserName, city, setCity, maritalStatus, setMaritalStatus }}>
             {children}
         </UserContext.Provider>
     );
