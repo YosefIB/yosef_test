@@ -12,9 +12,6 @@ import { UserProvider } from './context/UserContext';
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const [name, setName] = useState('');
-  const [city, setCity] = useState('');
-  const [maritalStatus, setMaritalStatus] = useState<string>('single');
 
     return (
     <UserProvider>
