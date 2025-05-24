@@ -7,7 +7,7 @@ import tw from 'twrnc';
 import Profile from './pages/profile/Profile';
 import Home from './pages/home/Home';
 import Setting from './pages/setting/Setting';
-import { UserProvider } from './context/UserContext';
+import { UserProvider } from './componnets/context/UserContext';
 
 const Tab = createBottomTabNavigator();
 

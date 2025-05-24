@@ -1,45 +1,73 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import tw from 'twrnc';
-import { useUser } from '../../context/UserContext';
+import { useUser } from '../../componnets/context/UserContext';
 
 const Profile = () => {
-    const { userName,city } = useUser();
+    const { userName, city, maritalStatus } = useUser();
 
     return (
-        <View style={container}>
-            <View style={cardStyle}>                
-                <View style={labelContainerStyle}>
-                    <View style={tw`flex-row items-center`}>
-                        <Text style={labelTextStyle}>Name:</Text>
-                        <Text style={userNameTextStyle}>
-                            {userName || 'Not set yet'}
-                        </Text>
+        <View style={styles.container}>
+            <View style={styles.card}>
+                <Text style={styles.header}>Profile Details</Text>
+                
+                <View style={styles.content}>
+                    {/* Name Section */}
+                    <View style={styles.itemContainer}>
+                        <View style={styles.iconContainer}>
+                            <Text style={styles.icon}>👤</Text>
+                        </View>
+                        <View style={styles.infoContainer}>
+                            <Text style={styles.label}>Name</Text>
+                            <Text style={styles.value}>
+                                {userName || 'Not set yet'}
+                            </Text>
+                        </View>
                     </View>
-                    <View style={tw`flex-row items-center mt-2`}>
-                        <Text style={labelTextStyle}>City:</Text>
-                        <Text style={userNameTextStyle}>
-                            {city || 'Not set yet'}
-                        </Text>
+
+                    {/* City Section */}
+                    <View style={styles.itemContainer}>
+                        <View style={styles.iconContainer}>
+                            <Text style={styles.icon}>🏙️</Text>
                         </View>
-                    <View style={tw`flex-row items-center mt-2`}>
-                        <Text style={labelTextStyle}>Marital Status:</Text>
-                        <Text style={userNameTextStyle}>
-                            {/* Assuming maritalStatus is also part of UserContext */}
-                            {useUser().maritalStatus || 'Not set yet'}
-                        </Text>
+                        <View style={styles.infoContainer}>
+                            <Text style={styles.label}>City</Text>
+                            <Text style={styles.value}>
+                                {city || 'Not set yet'}
+                            </Text>
                         </View>
+                    </View>
+
+                    {/* Marital Status Section */}
+                    <View style={styles.itemContainer}>
+                        <View style={styles.iconContainer}>
+                            <Text style={styles.icon}>💑</Text>
+                        </View>
+                        <View style={styles.infoContainer}>
+                            <Text style={styles.label}>Marital Status</Text>
+                            <Text style={styles.value}>
+                                {maritalStatus || 'Not set yet'}
+                            </Text>
+                        </View>
+                    </View>
                 </View>
             </View>
         </View>
     );
 };
 
-export default Profile;
+// Style Definitions
+const styles = {
+    container: tw`flex-1 bg-gradient-to-b from-blue-50 to-blue-100 p-6`,
+    card: tw`bg-white rounded-2xl shadow-lg p-6`,
+    header: tw`text-2xl font-bold text-gray-800 mb-6 text-center`,
+    content: tw`space-y-6`,
+    itemContainer: tw`flex-row items-center bg-gray-50 rounded-xl p-4`,
+    iconContainer: tw`w-12 h-12 bg-blue-100 rounded-full items-center justify-center mr-4`,
+    icon: tw`text-2xl`,
+    infoContainer: tw`flex-1`,
+    label: tw`text-gray-500 text-sm`,
+    value: tw`text-gray-800 text-lg font-medium mt-1`
+};
 
-// Styles
-const container = tw`flex-1 bg-gray-50 p-6`;
-const cardStyle = tw`bg-white rounded-2xl shadow-lg p-6 mt-4`;
-const labelContainerStyle = tw`mt-3`;
-const labelTextStyle = tw`text-lg font-semibold text-gray-600`;
-const userNameTextStyle = tw`text-xl text-gray-800 font-bold ml-1 px-2 py-1 rounded`;
+export default Profile;
